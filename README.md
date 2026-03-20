@@ -166,6 +166,39 @@ const Example = () => {
 };
 ```
 
+### ZoomPanPinchViewer (fork — SVG hotspot + `zoomToElement`)
+
+Component bọc sẵn `TransformWrapper` / `TransformComponent`, hỗ trợ lớp SVG phủ lên ảnh với **`viewBox` trùng hệ tọa độ ảnh**. Bật `svgHotspotZoom` để **click vào từng `<path>`** → gọi `zoomToElement` (animation tới vùng đó).
+
+```jsx
+import { ZoomPanPinchViewer } from "react-zoom-pan-pinch";
+
+// viewBox = `0 0 ${img.naturalWidth} ${img.naturalHeight}` — khớp pixel gốc của ảnh
+<ZoomPanPinchViewer
+  minScale={0.5}
+  maxScale={4}
+  centerOnInit
+  svgHotspotZoom
+  hotspotScale={2}
+  svgOverlay={{
+    viewBox: "0 0 1200 800",
+    paths: [
+      { id: "a", d: "M 100 100 L 200 100 L 200 200 Z", label: "Khu A" },
+    ],
+  }}
+  renderToolbar={({ resetTransform }) => (
+    <button type="button" onClick={() => resetTransform()}>
+      Reset
+    </button>
+  )}
+>
+  <img src="/plan.jpg" alt="Mặt bằng" width={1200} height={800} />
+</ZoomPanPinchViewer>
+```
+
+- **`overlayPathIdPrefix`**: khi có nhiều viewer trên một trang, thêm tiền tố để `id` path không trùng.
+- **`onHotspotPointerDown`**: tùy chọn xử lý pointer khi không dùng `svgHotspotZoom`.
+
 <p align="center">
 	<a href="https://github.com/sponsors/prc5?tier=Silver">
 		<picture>

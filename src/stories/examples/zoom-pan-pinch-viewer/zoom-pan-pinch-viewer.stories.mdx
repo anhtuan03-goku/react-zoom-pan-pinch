@@ -1,0 +1,32 @@
+import { Meta, Story, ArgsTable, Canvas } from "@storybook/addon-docs/blocks";
+
+import { TransformWrapper } from "../../../components";
+import { argsTypes } from "../../types/args.types";
+import { Example } from "./example";
+
+export const Template = (args) => <Example {...args} />;
+
+<Meta
+  title="Examples/ZoomPanPinchViewer"
+  component={TransformWrapper}
+  argTypes={argsTypes}
+/>
+
+# ZoomPanPinchViewer
+
+Component bọc `TransformWrapper` + `TransformComponent`, kèm lớp SVG (`viewBox` khớp ảnh) và tùy chọn **click path → `zoomToElement`** (animation).
+
+### Preview:
+
+<Canvas>
+  <Story name="Ảnh + hotspot SVG">{(args) => <Template {...args} />}</Story>
+</Canvas>
+
+## Ghi chú
+
+- `svgOverlay.viewBox` nên trùng với kích thước pixel gốc của ảnh (ví dụ `0 0 ${naturalWidth} ${naturalHeight}`).
+- Mỗi hotspot cần `id` duy nhất; dùng `overlayPathIdPrefix` nếu có nhiều viewer trên một trang.
+
+## Component API (TransformWrapper)
+
+<ArgsTable story="Ảnh + hotspot SVG" />
