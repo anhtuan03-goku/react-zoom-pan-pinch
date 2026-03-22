@@ -49,3 +49,7 @@ Thumbs.db
 
 # testing
 coverage
+
+build-viewer.js
+.agent
+.agents

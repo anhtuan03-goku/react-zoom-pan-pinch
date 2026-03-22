@@ -32,3 +32,12 @@
   display: grid;
   grid-template-columns: repeat(100, 1fr);
 }
+
+.hotspotPath {
+  fill: #f4a58e;
+  fill-opacity: 0.6;
+  stroke: black;
+  stroke-width: 0.162454;
+  stroke-linecap: round;
+  stroke-miterlimit: 10;
+}

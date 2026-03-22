@@ -260,12 +260,19 @@ export const ZoomPanPinchViewer: React.FC<ZoomPanPinchViewerProps> = ({
   useEffect(() => {
     if (typeof window === "undefined") return;
 
+    let frameId: number;
     const onResize = () => {
-      setEffectiveInitialState(getResponsiveState(window.innerWidth));
+      cancelAnimationFrame(frameId);
+      frameId = requestAnimationFrame(() => {
+        setEffectiveInitialState(getResponsiveState(window.innerWidth));
+      });
     };
 
-    window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
+    window.addEventListener("resize", onResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(frameId);
+    };
   }, [getResponsiveState]);
 
   // Khi người dùng set `minScale = 1` mà vẫn thấy lộ "background", nguyên nhân thường do padding
